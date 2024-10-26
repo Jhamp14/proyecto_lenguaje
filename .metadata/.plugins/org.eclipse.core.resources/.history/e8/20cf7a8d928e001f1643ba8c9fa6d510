@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Departamentos</title>
+</head>
+<body>
+    <h1>Lista de Departamentos</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+        </tr>
+        <tr th:each="departamento : ${departamentos}">
+            <td th:text="${departamento.id}"></td>
+            <td th:text="${departamento.nombre}"></td>
+        </tr>
+    </table>
+    <a href="/departamentos/nuevo">Registrar nuevo departamento</a>
+</body>
+</html>

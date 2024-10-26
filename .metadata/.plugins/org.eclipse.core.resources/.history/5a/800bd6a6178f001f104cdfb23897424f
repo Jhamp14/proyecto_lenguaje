@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestión de Empleados y Departamentos</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" /> <!-- Enlaza tu CSS si tienes -->
+</head>
+<body style="background-color: antiquewhite;">
+    <h1>Gestión de Empleados y Departamentos</h1>
+    <nav>
+        <ul>
+            <li><a href="/departamentos">Listar Departamentos</a></li>
+            <li><a href="/departamentos/nuevo">Agregar Nuevo Departamento</a></li>
+            <li><a href="/empleados">Listar Empleados</a></li>
+            <li><a href="/empleados/nuevo">Agregar Nuevo Empleado</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registrar Departamento</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" /> <!-- Enlaza tu CSS si tienes -->
+</head>
+<body style="background-color: antiquewhite;">
+    <h1>Registrar Departamento</h1>
+    <form th:action="@{/departamentos}" th:object="${departamento}" method="post">
+        <label for="nombre">Nombre: </label>
+        <input type="text" id="nombre" th:field="*{nombre}" required />
+        <br />
+        
+        <label for="ubicacion">Ubicación: </label>
+        <input type="text" id="ubicacion" th:field="*{ubicacion}" required />
+        <br />
+
+        <button type="submit">Guardar</button>
+    </form>
+	<a href="/">Regresar</a> <!-- Enlace para regresar a la página principal -->
+</body>
+</html>

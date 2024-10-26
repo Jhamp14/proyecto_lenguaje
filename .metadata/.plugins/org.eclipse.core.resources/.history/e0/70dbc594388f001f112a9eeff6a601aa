@@ -1,0 +1,25 @@
+package com.proyecto.service;
+
+
+import com.proyecto.model.Empleado;
+import com.proyecto.repository.Empleadorepository;
+import java.util.List;
+import org.springframework.stereotype.Service;
+
+@Service
+public class Empleadoservice {
+
+private final Empleadorepository  empleadorepository;
+	
+	public Empleadoservice(Empleadorepository empleadorepository) {
+		this.empleadorepository = empleadorepository;
+	}
+	
+	public List<Empleado> listarEmpleados(){
+		return empleadorepository.findAll();
+	}
+	public Empleado guardarEmpleados(Empleado empleado) {
+		return empleadorepository.save(empleado);
+	}
+	
+}

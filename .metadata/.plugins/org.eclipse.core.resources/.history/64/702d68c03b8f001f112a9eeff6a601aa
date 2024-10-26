@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Empleado</title>
+    <link rel="stylesheet" th:href="@{/css/style_form.css}" /> <!-- Asegúrate de enlazar tu CSS -->
+</head>
+<body>
+    <h1>Editar Empleado</h1>
+    <form th:action="@{/empleados}" th:object="${empleado}" method="post">
+        <input type="hidden" th:field="*{id}" /> <!-- Campo oculto para el ID -->
+        
+        <label for="nombre">Nombre: </label>
+        <input type="text" id="nombre" th:field="*{nombre}" required />
+        <br />
+
+        <label for="apellido">Apellido: </label>
+        <input type="text" id="apellido" th:field="*{apellido}" required />
+        <br />
+
+        <label for="email">Email: </label>
+        <input type="email" id="email" th:field="*{email}" required />
+        <br />
+
+        <label for="celular">Celular: </label>
+        <input type="number" id="celular" th:field="*{celular}" required />
+        <br />
+
+        <label for="sueldo">Sueldo: </label>
+        <input type="number" id="sueldo" th:field="*{sueldo}" required />
+        <br />
+
+        <label for="departamento">Departamento: </label>
+        <select id="departamento" th:field="*{departamento.id}" required>
+            <option th:each="d : ${departamentos}" th:value="${d.id}" th:text="${d.nombre}"></option>
+        </select>
+        <br />
+
+        <button type="submit">Guardar</button>
+    </form>
+    <a href="/">Regresar</a>
+</body>
+</html>
+
+

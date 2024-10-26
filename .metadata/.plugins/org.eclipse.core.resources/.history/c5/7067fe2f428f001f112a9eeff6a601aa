@@ -1,0 +1,34 @@
+package com.proyecto.service;
+
+import com.proyecto.model.Departamento;
+import com.proyecto.repository.Departamentorepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class Departamentoservice {
+
+    private final Departamentorepository departamentorepository;
+
+    public Departamentoservice(Departamentorepository departamentorepository) {
+        this.departamentorepository = departamentorepository;
+    }
+
+    public List<Departamento> findAll() {
+        return departamentorepository.findAll();
+    }
+
+    public Optional<Departamento> findById(Long id) {
+        return departamentorepository.findById(id);
+    }
+
+    public Departamento guardarDepartamento(Departamento departamento) {
+        return departamentorepository.save(departamento);
+    }
+
+    public void eliminarDepartamento(Long id) {
+        departamentorepository.deleteById(id);
+    }
+}

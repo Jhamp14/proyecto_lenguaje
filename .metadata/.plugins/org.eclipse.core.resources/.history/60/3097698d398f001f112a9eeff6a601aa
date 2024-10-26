@@ -1,0 +1,35 @@
+package com.proyecto.service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.proyecto.model.Empleado;
+import com.proyecto.repository.Empleadorepository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class Empleadoservice {
+    
+    private final Empleadorepository empleadoRepository;
+
+    @Autowired
+    public Empleadoservice(Empleadorepository empleadorepository) {
+        this.empleadoRepository = empleadorepository;
+    }
+
+    public List<Empleado> listarEmpleados() {
+        return empleadoRepository.findAll();
+    }
+
+    public Optional<Empleado> findById(Long id) {
+        return empleadoRepository.findById(id);
+    }
+
+    public void guardarEmpleados(Empleado empleado) {
+        empleadoRepository.save(empleado);
+    }
+
+    public void eliminarEmpleado(Long id) {
+        empleadoRepository.deleteById(id);
+    }
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.proyecto.model.empleado"/>
+    <fullyQualifiedTypeName name="com.proyecto.repository.Empleadorepository"/>
+    <fullyQualifiedTypeName name="com.proyecto.model.Empleado"/>
+    <fullyQualifiedTypeName name="com.proyecto.service.Empleadoservice"/>
+    <fullyQualifiedTypeName name="com.proyecto.repository.Departamentorepository"/>
+    <fullyQualifiedTypeName name="com.proyecto.model.Departamento"/>
+    <fullyQualifiedTypeName name="com.proyecto.service.Departamentoservice"/>
+</qualifiedTypeNameHistroy>

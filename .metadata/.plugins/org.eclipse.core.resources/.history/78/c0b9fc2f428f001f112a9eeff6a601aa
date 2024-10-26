@@ -1,0 +1,10 @@
+package com.proyecto.repository;
+
+import com.proyecto.model.Empleado;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository // Anotación opcional pero recomendada para claridad
+public interface Empleadorepository extends JpaRepository<Empleado, Long> {
+    // Aquí puedes agregar métodos de consulta personalizados si es necesario
+}

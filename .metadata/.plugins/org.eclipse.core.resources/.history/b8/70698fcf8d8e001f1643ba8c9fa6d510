@@ -1,0 +1,65 @@
+package com.proyecto.controller;
+
+import com.proyecto.model.Empleado;
+import com.proyecto.model.Departamento;
+import com.proyecto.service.Empleadoservice;
+import com.proyecto.service.Departamentoservice;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequestMapping("/empleados")
+public class Empleadocontroller {
+
+	private final Empleadoservice empleadoservice;
+	
+	@Autowired
+    private Departamentoservice departamentoService;
+	
+	public Empleadocontroller(Empleadoservice empleadoservice) {
+		this.empleadoservice = empleadoservice;
+	}
+	
+	@GetMapping
+	public String listarEmpleados(Model model) {
+		model.addAttribute("empleados",empleadoservice.listarEmpleados());
+		return "empleados";
+	}
+	
+	@GetMapping("/nuevo")
+	public String mostrarFormularioDeRegistro(Model model) {
+		model.addAttribute("empleado", new Empleado());
+		return "Formulario_empleados";
+	}
+	
+	@PostMapping
+	public String guardarEmpleado(@ModelAttribute("empleado") Empleado empleado) {
+		
+		// Obtener el ID del departamento desde el formulario
+		Long departamentoId = empleado.getDepartamento().getId();
+		// Buscar el departamento por su ID
+		Optional<Departamento> optionalDepartamento = Departamentoservice.findById(departamentoId);
+		
+		return "redirect:/empleados";
+		
+		// Verificar que el departamento existe
+		if (optionalDepartamento.isPresent()) {
+		    // Asignar el departamento al empleado
+		    empleado.setDepartamento(optionalDepartamento.get());
+		    
+		    // Guardar el empleado
+		    empleadoservice.guardarEmpleados(empleado);
+		} else {
+		    // Manejar el caso donde el departamento no existe
+		    // Puedes lanzar una excepción o redirigir a otra página
+		}
+		return "redirect:/empleados";
+	}
+	
+}
+

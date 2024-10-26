@@ -1,0 +1,40 @@
+package com.proyecto.controller;
+
+import com.proyecto.model.Empleado;
+import com.proyecto.service.Empleadoservice;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequestMapping("/empleados")
+public class Empleadocontroller {
+
+	private final Empleadoservice empleadoservice;
+	public Empleadocontroller(Empleadoservice empleadoservice) {
+		this.empleadoservice = empleadoservice;
+	}
+	
+	@GetMapping
+	public String listarEmpleados(Model model) {
+		model.addAttribute("empleados",empleadoservice.listarEmpleados());
+		return "empleados";
+	}
+	
+	@GetMapping("/nuevo")
+	public String mostrarFormularioDeRegistro(Model model) {
+		model.addAttribute("empleado", new Empleado());
+		return "formulario_empleado";
+	}
+	
+	@PostMapping
+	public String guardarUsuario(@ModelAttribute("empleado") Empleado empleado) {
+		empleadoservice.guardarEmpleados(empleado);
+		return "redirect:/empleados";
+	}
+	
+}
+
+
+
+

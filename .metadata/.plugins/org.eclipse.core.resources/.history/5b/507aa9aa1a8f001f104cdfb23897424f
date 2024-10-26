@@ -1,0 +1,47 @@
+package com.proyecto.controller;
+
+import com.proyecto.model.Departamento;
+import com.proyecto.service.Departamentoservice;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Controller
+@RequestMapping("/departamentos")
+public class Departamentocontroller {
+
+    private final Departamentoservice departamentoservice;
+
+    @Autowired
+    public Departamentocontroller(Departamentoservice departamentoservice) {
+        this.departamentoservice = departamentoservice;
+    }
+
+    @GetMapping
+    public String listarDepartamentos(Model model) {
+        List<Departamento> departamentos = departamentoservice.findAll();
+        model.addAttribute("departamentos", departamentos);
+        return "departamentos"; // Asegúrate de que tienes un archivo llamado departamentos.html
+    }
+
+
+    @GetMapping("/nuevo")
+    public String mostrarFormularioDeRegistro(Model model) {
+        model.addAttribute("departamento", new Departamento());
+        return "Formulario_departamento"; // Vista para crear un nuevo departamento
+    }
+
+    @PostMapping
+    public String guardarDepartamento(@ModelAttribute("departamento") Departamento departamento) {
+        departamentoservice.guardarDepartamento(departamento);
+        return "redirect:/departamentos"; // Redirigir a la lista de departamentos
+    }
+
+
+
+    // Agrega más métodos para editar y eliminar departamentos si es necesario
+}

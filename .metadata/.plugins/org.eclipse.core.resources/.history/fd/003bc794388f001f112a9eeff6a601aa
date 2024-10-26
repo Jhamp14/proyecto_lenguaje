@@ -1,0 +1,82 @@
+package com.proyecto.controller;
+
+import com.proyecto.model.Empleado;
+import com.proyecto.model.Departamento;
+import com.proyecto.service.Empleadoservice;
+import com.proyecto.service.Departamentoservice;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+@Controller
+@RequestMapping("/empleados")
+public class Empleadocontroller {
+
+    private final Empleadoservice empleadoservice;
+    private final Departamentoservice departamentoservice; // Añadir aquí
+
+    @Autowired // Inyectar el servicio de Departamento
+    public Empleadocontroller(Empleadoservice empleadoservice, Departamentoservice departamentoservice) {
+        this.empleadoservice = empleadoservice;
+        this.departamentoservice = departamentoservice; // Inicializar
+    }
+    
+    @GetMapping
+    public String listarEmpleados(Model model) {
+        model.addAttribute("empleados", empleadoservice.listarEmpleados());
+        return "empleados";
+    }
+    
+    @GetMapping("/nuevo")
+    public String mostrarFormularioDeRegistro(Model model) {
+        model.addAttribute("empleado", new Empleado());
+        model.addAttribute("departamentos", departamentoservice.findAll()); // Agregar esta línea
+        return "Formulario_empleados";
+    }
+    
+    
+    @PostMapping
+    public String guardarEmpleado(@ModelAttribute("empleado") Empleado empleado) {
+        // Obtener el ID del departamento desde el formulario
+        Long departamentoId = empleado.getDepartamento().getId();
+        
+        // Buscar el departamento por su ID usando la instancia del servicio
+        Optional<Departamento> optionalDepartamento = departamentoservice.findById(departamentoId);
+        
+        // Verificar que el departamento existe
+        if (optionalDepartamento.isPresent()) {
+            // Asignar el departamento al empleado
+            empleado.setDepartamento(optionalDepartamento.get());
+            
+            // Guardar el empleado
+            empleadoservice.guardarEmpleados(empleado);
+        }
+
+        return "redirect:/"; // Redirigir al index
+    }
+    
+ // En Empleadocontroller
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioDeEdicion(@PathVariable Long id, Model model) {
+        Empleado empleado = empleadoservice.findById(id).orElseThrow(() -> new IllegalArgumentException("Empleado no encontrado"));
+        model.addAttribute("empleado", empleado);
+        model.addAttribute("departamentos", departamentoservice.findAll());
+        return "Formulario_empleados"; // Asegúrate de que tienes una vista para editar
+    }
+
+    @PostMapping("/editar/{id}")
+    public String actualizarEmpleado(@PathVariable Long id, @ModelAttribute("empleado") Empleado empleado) {
+        // Aquí puedes realizar la lógica para actualizar el empleado
+        empleadoservice.guardarEmpleados(empleado);
+        return "redirect:/empleados"; // Redirigir a la lista de empleados
+    }
+
+
+
+}
+
+

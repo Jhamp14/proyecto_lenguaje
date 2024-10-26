@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestión de Empleados y Departamentos</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <h1>Gestión de Empleados y Departamentos</h1>
+
+    <div class="section">
+        <h2>Lista de Departamentos</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Ubicación</th>
+            </tr>
+            <tr th:each="departamento : ${departamentos}">
+                <td th:text="${departamento.id}"></td>
+                <td th:text="${departamento.nombre}"></td>
+                <td th:text="${departamento.ubicacion}"></td>
+            </tr>
+        </table>
+        <a href="/departamentos/nuevo">Agregar Nuevo Departamento</a>
+    </div>
+
+    <div class="section">
+        <h2>Lista de Empleados</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Celular</th>
+                <th>Sueldo</th>
+                <th>ID Dpto</th>
+            </tr>
+            <tr th:each="empleado : ${empleados}">
+                <td th:text="${empleado.id}"></td>
+                <td th:text="${empleado.nombre}"></td>
+                <td th:text="${empleado.apellido}"></td>
+                <td th:text="${empleado.email}"></td>
+                <td th:text="${empleado.celular}"></td>
+                <td th:text="${empleado.sueldo}"></td>
+                <td th:text="${empleado.departamento.id}"></td> <!-- Asumiendo que tienes la relación -->
+            </tr>
+        </table>
+        <a href="/empleados/nuevo">Agregar Nuevo Empleado</a>
+    </div>
+
+</body>
+</html>
+
